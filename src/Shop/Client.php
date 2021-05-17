@@ -26,7 +26,6 @@ class Client implements HasMoney
     {
         $this->money = $this->money - $product->getPrice();
         $this->product = $product;
-        return $product->getPrice();
     }
 
     public function getBoughtProduct()

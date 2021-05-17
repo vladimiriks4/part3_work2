@@ -21,7 +21,7 @@ class Shop implements HasMoney
     {
         $productsSortedByPrice = $this->products;
         usort($productsSortedByPrice, function ($a, $b){
-            return $a->getPrice() < $b->getPrice();
+            return $b->getPrice() <=> $a->getPrice();
         });
         return $productsSortedByPrice;
     }
@@ -30,10 +30,11 @@ class Shop implements HasMoney
     {
         $message = ' встал в очередь, У него было денег: ' . $client->getMoney() . '<br>';
         $sortedProducts = $this->getProductsSortedByPrice();
+        
         foreach ($sortedProducts as $key => $product) {
             if ($client->canBuyProduct($product)) {
-                $this->money = $this->money + $client->buyProduct($product);
-                $this->products = $sortedProducts;
+                $client->buyProduct($product);
+                $this->money = $this->money + $product->getPrice();
                 $this->sellProduct($product);
                 return $message;
             }

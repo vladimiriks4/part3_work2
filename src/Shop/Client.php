@@ -12,7 +12,7 @@ class Client implements HasMoney
         $this->money = $money;
     }
 
-    public function getMoney()
+    public function getMoney() :int
     {
         return $this->money;
     }
@@ -22,17 +22,14 @@ class Client implements HasMoney
         return $product->getPrice() <= $this->getMoney();
     }
 
-    public function buyProduct(Product $product)
+    public function buyProduct(Product $product) :void
     {
         $this->money = $this->money - $product->getPrice();
         $this->product = $product;
     }
 
-    public function getBoughtProduct()
+    public function getBoughtProduct() :Product
     {
-        if($this->product){
-            return ' купил товар ' . $this->product->getName() . '. У него осталось денег: ' . $this->getMoney() . '<br><br>';
-        }
-        return ' ничего не купил. У него осталось денег: ' . $this->getMoney() . '<br><br>';
+        return $this->product;
     }
 }

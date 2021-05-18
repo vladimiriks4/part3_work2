@@ -7,17 +7,17 @@ class Shop implements HasMoney
     private $products = [];
     private $money;
 
-    public function getMoney()
+    public function getMoney() :int
     {
-        return 'Товаров куплено на сумму ' . $this->money;
+        return $this->money;
     }
 
-    public function addProduct(Product $product)
+    public function addProduct(Product $product) :void
     {
         $this->products[] = $product;
     }
 
-    public function getProductsSortedByPrice()
+    public function getProductsSortedByPrice() :array
     {
         $productsSortedByPrice = $this->products;
         usort($productsSortedByPrice, function ($a, $b){
@@ -26,23 +26,22 @@ class Shop implements HasMoney
         return $productsSortedByPrice;
     }
 
-    public function sellTheMostExpensiveProduct(Client $client)
+    public function sellTheMostExpensiveProduct(Client $client) :bool
     {
-        $message = ' встал в очередь, У него было денег: ' . $client->getMoney() . '<br>';
         $sortedProducts = $this->getProductsSortedByPrice();
-        
+
         foreach ($sortedProducts as $key => $product) {
             if ($client->canBuyProduct($product)) {
                 $client->buyProduct($product);
                 $this->money = $this->money + $product->getPrice();
                 $this->sellProduct($product);
-                return $message;
+                return true;
             }
         }
-        return $message;
+        return false;
     }
 
-    private function sellProduct(Product $product)
+    private function sellProduct(Product $product) :void
     {
         unset($this->products[array_search($product, $this->products)]);
     }

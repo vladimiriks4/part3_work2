@@ -18,7 +18,7 @@ class Product
         return $this->price;
     }
 
-    public function getName()
+    public function getName() :string
     {
         return $this->name;
     }

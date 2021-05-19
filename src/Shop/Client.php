@@ -5,7 +5,7 @@ namespace App\Shop;
 class Client implements HasMoney
 {
     private $product;
-    protected $money;
+    protected int $money;
 
     public function __construct(int $money)
     {

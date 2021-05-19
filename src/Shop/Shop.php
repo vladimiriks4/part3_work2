@@ -33,7 +33,7 @@ class Shop implements HasMoney
         foreach ($sortedProducts as $key => $product) {
             if ($client->canBuyProduct($product)) {
                 $client->buyProduct($product);
-                $this->money = $this->money + $product->getPrice();
+                $this->money = (int)($this->money + $product->getPrice());
                 $this->sellProduct($product);
                 return true;
             }

@@ -4,10 +4,10 @@ namespace App\Shop;
 
 class Product
 {
-    protected $name;
-    protected $price;
+    protected string $name;
+    protected int $price;
 
-    public function __construct($name, int $price)
+    public function __construct(string $name, int $price)
     {
         $this->name = $name;
         $this->price = $price;

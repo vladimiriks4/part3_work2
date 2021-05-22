@@ -4,16 +4,19 @@ namespace App\School;
 
 class Teacher extends Person
 {
-    private $experience;
+    private int $experience;
 
-    public function __construct($name, $age)
+    public function __construct(string $name, int $age)
     {
         $this->name = $name;
-        $this->age = (int) $age;
+        $this->age = $age;
         $this->experience = $this->age - 18;
     }
 
-    public function getExperience()
+    /**
+     * @return int
+     */
+    public function getExperience() :int
     {
         return $this->experience;
     }

@@ -5,32 +5,49 @@ namespace App\School;
 class SchoolClass
 {
     private $teacher;
-    protected $pupils = [];
+    protected array $pupils = [];
 
     public function __construct($teacher)
     {
         $this->teacher = $teacher;
     }
 
-    public function addPupil($pupil)
+    /**
+     * @return int
+     */
+    public function addPupil(Pupil $pupil) :int
     {
-        if ($pupil instanceof Pupil && !$pupil->isAdult() && $this->getCountPupils() < 20) {
-            $this->pupils[] = $pupil;
-            return true;
+        if ($pupil->isAdult()) {
+            return 4;
         }
-        return false;
+        if ($this->getCountPupils() > 20) {
+            return 3;
+        }
+        $this->pupils[] = $pupil;
+        return 2;
     }
 
-    public function getCountPupils()
+    /**
+     * @return int
+     */
+    public function getCountPupils() :int
     {
         return count($this->pupils);
     }
 
-    public function getPupilsOfClass() {
+    /**
+     * @return array
+     */
+    public function getPupilsOfClass() :array
+    {
         return $this->pupils;
     }
 
-    public function getTeacher() {
+    /**
+     * @return object
+     */
+    public function getTeacher() :object
+    {
         return $this->teacher;
     }
 }

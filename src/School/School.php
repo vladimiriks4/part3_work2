@@ -4,40 +4,48 @@ namespace App\School;
 
 class School
 {
-    protected $persons = [];
-    protected $classes = [];
+    protected array $persons = [];
+    protected array $classes = [];
 
-    public function addPerson(Person $person)
+    /**
+     * @return int
+     */
+    public function addPerson(Person $person) :int
     {
         if (method_exists($person, 'getExperience')) {
             $this->addClass(new SchoolClass($person));
-            return 'принят новый teacher';
-        } elseif(!$person->isAdult()) {
-            foreach ($this->classes as $classForPupil) {
-                if ($classForPupil->addPupil($person)) {
-                    $this->persons['Pupil'][] = $person;
-                    return '<hr>'.'принят новый pupil'.'<hr>';
-                }
-            }
-            echo '<br>';
-            echo 'все классы заполненны. дождитесь формирования нового класса';
-            echo '<br>';
-        } else {
-            return 'Этот человек не подходит для школы';
+            return 1;
         }
+        foreach ($this->classes as $classForPupil) {
+            $infoKey = $classForPupil->addPupil($person);
+            if ($infoKey == 2) {
+                $this->persons[] = $person;
+                return $infoKey;
+            }
+            if ($infoKey != 3) {
+                return $infoKey;
+            }
+        }
+        return 3;
     }
 
-    public function addClass(SchoolClass $schoolClass)
+    /**
+     * @return void
+     */
+    public function addClass(SchoolClass $schoolClass) :void
     {
         $this->classes[$schoolClass->getTeacher()->getName()] = $schoolClass;
         $this->persons['Teacher'][] = $schoolClass->getTeacher();
         foreach ($schoolClass->getPupilsOfClass() as $pupil) {
-            $this->persons['Pupil'][] = $pupil;
+            $this->persons[] = $pupil;
         }
     }
 
-    public function personsInSchoolCount()
+    /**
+     * @return int
+     */
+    public function personsInSchoolCount() :int
     {
-        return count($this->persons['Teacher']) + count($this->persons['Pupil']);
+        return count($this->persons);
     }
 }

@@ -4,8 +4,8 @@ namespace App\Shop;
 
 class Shop implements HasMoney
 {
-    private $products = [];
-    private $money;
+    private array $products = [];
+    private int $money = 0;
 
     public function getMoney() :int
     {
@@ -33,7 +33,7 @@ class Shop implements HasMoney
         foreach ($sortedProducts as $key => $product) {
             if ($client->canBuyProduct($product)) {
                 $client->buyProduct($product);
-                $this->money = (int)($this->money + $product->getPrice());
+                $this->money = ($this->money + $product->getPrice());
                 $this->sellProduct($product);
                 return true;
             }

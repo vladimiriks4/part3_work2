@@ -12,23 +12,23 @@ class Client implements HasMoney
         $this->money = $money;
     }
 
-    public function getMoney() :int
+    public function getMoney(): int
     {
         return $this->money;
     }
 
-    public function canBuyProduct(Product $product) :bool
+    public function canBuyProduct(Product $product): bool
     {
         return $product->getPrice() <= $this->getMoney();
     }
 
-    public function buyProduct(Product $product) :void
+    public function buyProduct(Product $product): void
     {
         $this->money = $this->money - $product->getPrice();
         $this->product = $product;
     }
 
-    public function getBoughtProduct() :Product
+    public function getBoughtProduct(): Product
     {
         return $this->product;
     }

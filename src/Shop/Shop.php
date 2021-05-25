@@ -7,17 +7,17 @@ class Shop implements HasMoney
     private array $products = [];
     private int $money = 0;
 
-    public function getMoney() :int
+    public function getMoney(): int
     {
         return $this->money;
     }
 
-    public function addProduct(Product $product) :void
+    public function addProduct(Product $product): void
     {
         $this->products[] = $product;
     }
 
-    public function getProductsSortedByPrice() :array
+    public function getProductsSortedByPrice(): array
     {
         $productsSortedByPrice = $this->products;
         usort($productsSortedByPrice, function ($a, $b){
@@ -26,7 +26,7 @@ class Shop implements HasMoney
         return $productsSortedByPrice;
     }
 
-    public function sellTheMostExpensiveProduct(Client $client) :bool
+    public function sellTheMostExpensiveProduct(Client $client): bool
     {
         $sortedProducts = $this->getProductsSortedByPrice();
 
@@ -41,7 +41,7 @@ class Shop implements HasMoney
         return false;
     }
 
-    private function sellProduct(Product $product) :void
+    private function sellProduct(Product $product): void
     {
         unset($this->products[array_search($product, $this->products)]);
     }

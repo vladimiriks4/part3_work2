@@ -13,12 +13,12 @@ class Product
         $this->price = $price;
     }
 
-    public function getPrice() :int
+    public function getPrice(): int
     {
         return $this->price;
     }
 
-    public function getName() :string
+    public function getName(): string
     {
         return $this->name;
     }

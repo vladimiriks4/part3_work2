@@ -10,13 +10,10 @@ class Teacher extends Person
     {
         $this->name = $name;
         $this->age = $age;
-        $this->experience = $this->age - 18;
+        $this->experience = $this->age - ADULT_AGE;
     }
 
-    /**
-     * @return int
-     */
-    public function getExperience() :int
+    public function getExperience(): int
     {
         return $this->experience;
     }

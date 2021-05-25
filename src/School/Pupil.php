@@ -10,11 +10,8 @@ class Pupil extends Person
         $this->age = $age;
     }
 
-    /**
-     * @return bool
-     */
-    public function isAdult() :bool
+    public function isAdult(): bool
     {
-        return $this->getAge() > 17;
+        return $this->getAge() >= ADULT_AGE;
     }
 }

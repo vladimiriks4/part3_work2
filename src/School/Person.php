@@ -4,18 +4,18 @@ namespace App\School;
 
 abstract class Person
 {
-    public $name;
-    protected $age;
+    protected string $name;
+    protected int $age;
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getAge()
+    public function getAge(): int
     {
         return $this->age;
     }
 
-    abstract public function __construct($name, $age);
+    abstract public function __construct(string $name, int $age);
 }

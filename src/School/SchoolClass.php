@@ -4,33 +4,28 @@ namespace App\School;
 
 class SchoolClass
 {
-    private $teacher;
-    protected $pupils = [];
+    private Teacher $teacher;
+    protected array $pupils = [];
 
-    public function __construct($teacher)
+    public function __construct(Teacher $teacher)
     {
         $this->teacher = $teacher;
     }
 
-    public function addPupil($pupil)
+    public function addPupil(Pupil $pupil): void
     {
-        if ($pupil instanceof Pupil && !$pupil->isAdult() && $this->getCountPupils() < 20) {
+        if (!$pupil->isAdult() || $this->fullClass()) {
             $this->pupils[] = $pupil;
-            return true;
         }
-        return false;
     }
 
-    public function getCountPupils()
+    public function fullClass(): bool
+    {
+        return $this->getCountPupils() > MAX_COUNT_PUPIL;
+    }
+
+    public function getCountPupils(): int
     {
         return count($this->pupils);
-    }
-
-    public function getPupilsOfClass() {
-        return $this->pupils;
-    }
-
-    public function getTeacher() {
-        return $this->teacher;
     }
 }

@@ -4,15 +4,14 @@ namespace App\School;
 
 class Pupil extends Person
 {
-
-    public function __construct($name, $age)
+    public function __construct(string $name, int $age)
     {
         $this->name = $name;
-        $this->age = (int) $age;
+        $this->age = $age;
     }
 
-    public function isAdult()
+    public function isAdult(): bool
     {
-        return $this->getAge() > 17;
+        return $this->getAge() >= ADULT_AGE;
     }
 }

@@ -4,36 +4,32 @@ namespace App\Shop;
 
 class Client implements HasMoney
 {
-    private $product;
-    protected $money;
+    private Product $product;
+    protected int $money;
 
     public function __construct(int $money)
     {
         $this->money = $money;
     }
 
-    public function getMoney()
+    public function getMoney(): int
     {
         return $this->money;
     }
 
-    public function canBuyProduct(Product $product) :bool
+    public function canBuyProduct(Product $product): bool
     {
         return $product->getPrice() <= $this->getMoney();
     }
 
-    public function buyProduct(Product $product)
+    public function buyProduct(Product $product): void
     {
         $this->money = $this->money - $product->getPrice();
         $this->product = $product;
-        return $product->getPrice();
     }
 
-    public function getBoughtProduct()
+    public function getBoughtProduct(): Product
     {
-        if($this->product){
-            return ' купил товар ' . $this->product->getName() . '. У него осталось денег: ' . $this->getMoney() . '<br><br>';
-        }
-        return ' ничего не купил. У него осталось денег: ' . $this->getMoney() . '<br><br>';
+        return $this->product;
     }
 }

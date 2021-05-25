@@ -4,40 +4,25 @@ namespace App\School;
 
 class School
 {
-    protected $persons = [];
-    protected $classes = [];
+    protected array $persons = [];
+    protected array $classes = [];
 
-    public function addPerson(Person $person)
+    public function addPerson(Person $person): void
     {
-        if (method_exists($person, 'getExperience')) {
-            $this->addClass(new SchoolClass($person));
-            return 'принят новый teacher';
-        } elseif(!$person->isAdult()) {
-            foreach ($this->classes as $classForPupil) {
-                if ($classForPupil->addPupil($person)) {
-                    $this->persons['Pupil'][] = $person;
-                    return '<hr>'.'принят новый pupil'.'<hr>';
-                }
-            }
-            echo '<br>';
-            echo 'все классы заполненны. дождитесь формирования нового класса';
-            echo '<br>';
-        } else {
-            return 'Этот человек не подходит для школы';
-        }
+        $this->persons[] = $person;
     }
 
-    public function addClass(SchoolClass $schoolClass)
+    public function addClass(SchoolClass $schoolClass): void
     {
-        $this->classes[$schoolClass->getTeacher()->getName()] = $schoolClass;
-        $this->persons['Teacher'][] = $schoolClass->getTeacher();
-        foreach ($schoolClass->getPupilsOfClass() as $pupil) {
-            $this->persons['Pupil'][] = $pupil;
-        }
+        $this->classes[] = $schoolClass;
     }
 
-    public function personsInSchoolCount()
+    public function personsInSchoolCount(): int
     {
-        return count($this->persons['Teacher']) + count($this->persons['Pupil']);
+        $count = count($this->persons);
+        foreach ($this->classes as $class) {
+            $count += 1 + $class->getCountPupils();
+        }
+        return $count;
     }
 }
